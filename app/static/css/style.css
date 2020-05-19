@@ -20,6 +20,11 @@ main {
   object-fit: contain;
 }
 
+.order img {
+  height: 100px;
+  object-fit: contain;
+}
+
 .itemlist img {
   height: 150px;
   object-fit: contain;

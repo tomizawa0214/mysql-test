@@ -3,6 +3,19 @@ from django.views.generic import ListView, DetailView, View
 from .models import Item, OrderItem, Order
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
+from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+class OrderView(LoginRequiredMixin, View):
+  def get(self, request, *args, **kwargs):
+    try:
+      order = Order.objects.get(user=request.user, ordered=False)
+      context = {
+        'order': order
+      }
+      return render(request, 'app/order.html', context)
+    except ObjectDoesNotExist:
+      return render(request, 'app/order.html')
 
 @login_required
 def addItem(request, slug):
@@ -23,7 +36,7 @@ def addItem(request, slug):
       order.items.add(order_item)
   else:
     order = Order.objects.create(user=request.user, ordered_data=timezone.now())
-    prder.items.add(order_item)
+    order.items.add(order_item)
 
   return redirect('order')
 
