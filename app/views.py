@@ -1,6 +1,10 @@
-from django.views.generic import TemplateView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView, DetailView
+from .models import Item
 
-class IndexView(LoginRequiredMixin, TemplateView):
-  template_name = "app/index.html"
-  login_url = '/accounts/login/'
+class ItemDetailView(DetailView):
+  model = Item
+  template_name = 'app/product.html'
+  
+class IndexView(ListView):
+  model = Item
+  template_name = 'app/index.html'
