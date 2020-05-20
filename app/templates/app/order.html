@@ -22,7 +22,7 @@
                 {{ order_item.quantity }}
                 <a href="{% url 'additem' order_item.item.slug %}"><span class="badge badge-warning">+</span></a>
               </p>
-              <a href="">
+              <a href="{% url 'removeitem' order_item.item.slug %}">
                 <span class="badge badge-danger">削除</span>
               </a>
             </div>
