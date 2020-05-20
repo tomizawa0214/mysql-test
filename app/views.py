@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView, DetailView, View
+from django.views.generic import TemplateView, ListView, DetailView, View
 from .models import Item, OrderItem, Order, Payment
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
@@ -7,6 +7,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 from accounts.models import CustomUser
+
+class ThanksView(LoginRequiredMixin, TemplateView):
+  template_name = 'app/thanks.html'
 
 class PaymentView(LoginRequiredMixin, View):
   def get(self, request, *args, **kwargs):
