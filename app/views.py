@@ -1,10 +1,41 @@
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView, View
-from .models import Item, OrderItem, Order
+from .models import Item, OrderItem, Order, Payment
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.conf import settings
+from accounts.models import CustomUser
+
+class PaymentView(LoginRequiredMixin, View):
+  def get(self, request, *args, **kwargs):
+    order = Order.objects.get(user=request.user, ordered=False)
+    user_data = CustomUser.objects.get(id=request.user.id)
+    context = {
+      'order': order,
+      'user_data': user_data
+    }
+    return render(request, 'app/payment.html', context)
+
+  def post(self, request, *args, **kwargs):
+    order = Order.objects.get(user=request.user, ordered=False)
+    order_items = order.items.all()
+    amount = order.get_total()
+
+    payment = Payment(user=request.user)
+    payment.stripe_charge_id = 'test_stripe_charge_id'
+    payment.amount = amount
+    payment.save()
+
+    order_items.update(ordered=True)
+    for item in order_items:
+      item.save()
+
+    order.ordered = True
+    order.payment = payment
+    order.save()
+    return redirect('thanks')
 
 class OrderView(LoginRequiredMixin, View):
   def get(self, request, *args, **kwargs):
