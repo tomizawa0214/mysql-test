@@ -7,6 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 from accounts.models import CustomUser
+import stripe
 
 class ThanksView(LoginRequiredMixin, TemplateView):
   template_name = 'app/thanks.html'
@@ -22,12 +23,25 @@ class PaymentView(LoginRequiredMixin, View):
     return render(request, 'app/payment.html', context)
 
   def post(self, request, *args, **kwargs):
+    stripe.api_key = settings.STRIPE_SECRET_KEY
     order = Order.objects.get(user=request.user, ordered=False)
-    order_items = order.items.all()
+    token = request.POST.get('stripeToken')
     amount = order.get_total()
+    order_items = order.items.all()
+    item_list = []
+    for order_item in order_items:
+      item_list.append(str(order_item.item) + ':' + str(order_item.quantity))
+    description = ''.join(item_list)
+
+    charge = stripe.Charge.create(
+      amount=amount,
+      currency='jpy',
+      description=description,
+      source=token,
+    )
 
     payment = Payment(user=request.user)
-    payment.stripe_charge_id = 'test_stripe_charge_id'
+    payment.stripe_charge_id = charge['id']
     payment.amount = amount
     payment.save()
 
