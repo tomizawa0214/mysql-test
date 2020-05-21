@@ -118,4 +118,8 @@ if not DEBUG:
     django_heroku.settings(locals())
     SECRET_KEY = os.environ['SECRET_KEY']
     STRIPE_SECRET_KEY = os.environ['STRIPE_SECRET_KEY']
-    CLOUDINARY_STORAGE = os.environ['CLOUDINARY_STORAGE']
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': os.environ['CLOUD_NAME'],
+        'API_KEY': os.environ['API_KEY'],
+        'API_SECRET': os.environ['API_SECRET']
+    }
