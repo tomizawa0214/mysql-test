@@ -116,6 +116,7 @@ if not DEBUG:
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'ec',
             'USER': 'tomizawa',
-            'PASSWORD': os.environ['PASSWORD']
+            'PASSWORD': os.environ['PASSWORD'],
+            'HOST': '127.0.0.1',
         }
     }
