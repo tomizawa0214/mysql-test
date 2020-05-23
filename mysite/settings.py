@@ -1,4 +1,5 @@
 import os
+import dj_database_url
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -55,12 +56,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
-
-import dj_database_url
-db_from_env = dj_database_url.config()
-DATABASES = {
-    'default': dj_database_url.config()
-}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -124,4 +119,7 @@ if not DEBUG:
             'USER': 'tomizawa',
             'PASSWORD': os.environ['PASSWORD'],
         }
+    }
+    DATABASES = {
+        'default': dj_database_url.config()
     }
