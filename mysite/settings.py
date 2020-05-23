@@ -56,6 +56,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
+import dj_database_url
+db_from_env = dj_database_url.config()
+DATABASES = {
+    'default': dj_database_url.config()
+}
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -114,9 +120,8 @@ if not DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'heroku_84f092538084555',
-            'USER': 'bd6b41b6802070',
-            'PASSWORD': '0311946e',
-            'HOST': 'us-cdbr-east-06.cleardb.net',
+            'NAME': 'ec',
+            'USER': 'tomizawa',
+            'PASSWORD': 'os.environ['PASSWORD'],
         }
     }
