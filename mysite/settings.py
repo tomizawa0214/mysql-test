@@ -1,5 +1,4 @@
 import os
-import django_heroku
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -107,7 +106,6 @@ except ImportError:
     pass
 
 if not DEBUG:
-    import django_heroku
     django_heroku.settings(locals())
     SECRET_KEY = os.environ['SECRET_KEY']
     STRIPE_SECRET_KEY = os.environ['STRIPE_SECRET_KEY']
