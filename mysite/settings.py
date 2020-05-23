@@ -117,6 +117,5 @@ if not DEBUG:
             'NAME': 'ec',
             'USER': 'tomizawa',
             'PASSWORD': os.environ['PASSWORD'],
-            'HOST': '127.0.0.1',
         }
     }
