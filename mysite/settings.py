@@ -98,15 +98,12 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 
-django_heroku.settings(locals())
-
 try:
     from .local_settings import *
 except ImportError:
     pass
 
 if not DEBUG:
-    django_heroku.settings(locals())
     SECRET_KEY = os.environ['SECRET_KEY']
     STRIPE_SECRET_KEY = os.environ['STRIPE_SECRET_KEY']
     CLOUDINARY_STORAGE = {
