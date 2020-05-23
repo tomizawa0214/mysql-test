@@ -1,5 +1,4 @@
 import os
-import dj_database_url
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -115,11 +114,10 @@ if not DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'ec',
-            'USER': 'tomizawa',
-            'PASSWORD': os.environ['PASSWORD'],
+            'NAME': 'heroku_84f092538084555',
+            'USER': 'bd6b41b6802070',
+            'PASSWORD': '0311946e',
+            'HOST': 'us-cdbr-east-06.cleardb.net',
+            'PORT': '3306',
         }
-    }
-    DATABASES = {
-        'default': dj_database_url.config()
     }
