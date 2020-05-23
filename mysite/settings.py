@@ -114,8 +114,9 @@ if not DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'ec',
-            'USER': 'tomizawa',
-            'PASSWORD': os.environ['PASSWORD'],
+            'NAME': 'heroku_84f092538084555',
+            'USER': 'bd6b41b6802070',
+            'PASSWORD': '0311946e',
+            'HOST': 'us-cdbr-east-06.cleardb.net',
         }
     }
