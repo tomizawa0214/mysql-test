@@ -14,7 +14,7 @@ mysql-connector-python==8.0.20
 mysqlclient==1.4.6
 oauthlib==3.1.0
 Pillow==2.2.2
-protobuf==3.12.1
+protobuf==3.18.3
 psycopg2==2.8.5
 python3-openid==3.1.0
 pytz==2020.1
